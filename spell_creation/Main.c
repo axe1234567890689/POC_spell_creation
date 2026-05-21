@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
 	Entity* testPlayer = entity_create((sfVector2f) { 960., 540. });
 
 	Spell* sort = spell_create(testPlayer, -1.);
-	sort->nbNoeud = 11;
+	sort->nbNoeud = 9;
 	sort->noeuds = calloc(sort->nbNoeud, sizeof(Noeud));
 	noeud_create(&sort->noeuds[0], NT_DECLENCHEUR_ON_TICK);
 	noeud_create(&sort->noeuds[1], NT_CONST_FLOAT);
@@ -31,8 +31,6 @@ int main(int argc, char** argv) {
 	noeud_create(&sort->noeuds[6], NT_MATH_FOIS);
 	noeud_create(&sort->noeuds[7], NT_MATH_FOIS);
 	noeud_create(&sort->noeuds[8], NT_EFFECT_SET_FORCE_AT);
-	noeud_create(&sort->noeuds[9], NT_DEBUG_PRINTF);
-	noeud_create(&sort->noeuds[10], NT_DEBUG_PRINTF);
 
 	sort->noeudDeclencheurs[0] = &sort->noeuds[0];
 
@@ -47,7 +45,7 @@ int main(int argc, char** argv) {
 	sort->noeuds[1].connectedNoeudOut[1].value[0].posInNoeud = 2;
 	sort->noeuds[1].connectedNoeudOut[1].value[1].noeud = &sort->noeuds[7];
 	sort->noeuds[1].connectedNoeudOut[1].value[1].posInNoeud = 2;
-	sort->noeuds[1].save = 100.f;
+	sort->noeuds[1].save = 10.f;
 
 	sort->noeuds[2].connectedNoeudOut[1].nbOut = 1;
 	sort->noeuds[2].connectedNoeudOut[1].value = calloc(sort->noeuds[2].connectedNoeudOut[1].nbOut, sizeof(Out));
@@ -83,19 +81,15 @@ int main(int argc, char** argv) {
 	sort->noeuds[5].connectedNoeudOut[1].value[0].noeud = &sort->noeuds[7];
 	sort->noeuds[5].connectedNoeudOut[1].value[0].posInNoeud = 1;
 
-	sort->noeuds[6].connectedNoeudOut[1].nbOut = 2;
+	sort->noeuds[6].connectedNoeudOut[1].nbOut = 1;
 	sort->noeuds[6].connectedNoeudOut[1].value = calloc(sort->noeuds[6].connectedNoeudOut[1].nbOut, sizeof(Out));
 	sort->noeuds[6].connectedNoeudOut[1].value[0].noeud = &sort->noeuds[8];
 	sort->noeuds[6].connectedNoeudOut[1].value[0].posInNoeud = 1;
-	sort->noeuds[6].connectedNoeudOut[1].value[1].noeud = &sort->noeuds[9];
-	sort->noeuds[6].connectedNoeudOut[1].value[1].posInNoeud = 1;
 
-	sort->noeuds[7].connectedNoeudOut[1].nbOut = 2;
+	sort->noeuds[7].connectedNoeudOut[1].nbOut = 1;
 	sort->noeuds[7].connectedNoeudOut[1].value = calloc(sort->noeuds[7].connectedNoeudOut[1].nbOut, sizeof(Out));
 	sort->noeuds[7].connectedNoeudOut[1].value[0].noeud = &sort->noeuds[8];
 	sort->noeuds[7].connectedNoeudOut[1].value[0].posInNoeud = 2;
-	sort->noeuds[7].connectedNoeudOut[1].value[1].noeud = &sort->noeuds[10];
-	sort->noeuds[7].connectedNoeudOut[1].value[1].posInNoeud = 1;
 
 	sort->nbNoeudMaxByTick = 20;
 
