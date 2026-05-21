@@ -7,6 +7,7 @@ struct Entity {
 	Entity* next;
 	unsigned int ID;
 	sfVector2f pos;
+	sfVector2f exPos;
 	void* entityTypeInfo;
 };
 

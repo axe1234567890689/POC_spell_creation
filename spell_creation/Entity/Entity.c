@@ -19,6 +19,7 @@ Entity* entity_create(sfVector2f _pos)
     newEntity->ID = 0;
     newEntity->next = NULL;
     newEntity->pos = _pos;
+    newEntity->exPos = _pos;
     newEntity->entityTypeInfo = NULL;
     pushFrontValue(&firstEntity, newEntity);
     return newEntity;

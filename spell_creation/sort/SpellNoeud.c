@@ -21,6 +21,11 @@ void spellNoeud_init()
     noeudInfos[NT_CONST_RANDOM].nbInput = 1;
     noeudInfos[NT_CONST_RANDOM].nbOutput = 2;
 
+
+    noeudInfos[NT_DECLENCHEUR_ON_TICK].nbInput = 0;
+    noeudInfos[NT_DECLENCHEUR_ON_TICK].nbOutput = 1;
+
+
     noeudInfos[NT_COND_EQUAL].nbInput = 3;
     noeudInfos[NT_COND_EQUAL].nbOutput = 2;
 
@@ -38,6 +43,7 @@ void spellNoeud_init()
 
     noeudInfos[NT_COND_INVERT].nbInput = 2;
     noeudInfos[NT_COND_INVERT].nbOutput = 2;
+
 
     noeudInfos[NT_INPUT_CURRENT_POS].nbInput = 1;
     noeudInfos[NT_INPUT_CURRENT_POS].nbOutput = 3;
@@ -72,9 +78,6 @@ void spellNoeud_init()
     noeudInfos[NT_INPUT_SENDER].nbInput = 1;
     noeudInfos[NT_INPUT_SENDER].nbOutput = 3; // tout pour avoir un Mob (le sender)
 
-    noeudInfos[NT_INPUT_DIRECTION_TO].nbInput = 3; // prend une position
-    noeudInfos[NT_INPUT_DIRECTION_TO].nbOutput = 2;
-
     noeudInfos[NT_INPUT_MANA_USE].nbInput = 1;
     noeudInfos[NT_INPUT_MANA_USE].nbOutput = 2;
 
@@ -90,11 +93,35 @@ void spellNoeud_init()
     noeudInfos[NT_INPUT_NB_NOEUD_THIS_TICK].nbInput = 1;
     noeudInfos[NT_INPUT_NB_NOEUD_THIS_TICK].nbOutput = 2;
 
-    noeudInfos[NT_DECLENCHEUR_ON_TICK].nbInput = 0;
-    noeudInfos[NT_DECLENCHEUR_ON_TICK].nbOutput = 1;
+
+    noeudInfos[NT_MATH_PLUS].nbInput = 3;
+    noeudInfos[NT_MATH_PLUS].nbOutput = 2;
+
+    noeudInfos[NT_MATH_MOINS].nbInput = 3;
+    noeudInfos[NT_MATH_MOINS].nbOutput = 2;
+
+    noeudInfos[NT_MATH_FOIS].nbInput = 3;
+    noeudInfos[NT_MATH_FOIS].nbOutput = 2;
+
+    noeudInfos[NT_MATH_DIVIDE].nbInput = 3;
+    noeudInfos[NT_MATH_DIVIDE].nbOutput = 2;
+
+    noeudInfos[NT_MATH_COS].nbInput = 2;
+    noeudInfos[NT_MATH_COS].nbOutput = 2;
+
+    noeudInfos[NT_MATH_SIN].nbInput = 2;
+    noeudInfos[NT_MATH_SIN].nbOutput = 2;
+
+    noeudInfos[NT_MATH_ANGLE_TO].nbInput = 3;
+    noeudInfos[NT_MATH_ANGLE_TO].nbOutput = 2;
+
+
+    noeudInfos[NT_EFFECT_SET_FORCE_AT].nbInput = 3;
+    noeudInfos[NT_EFFECT_SET_FORCE_AT].nbOutput = 1;
 
     noeudInfos[NT_EFFECT_SET_COLOR].nbInput = 4;
     noeudInfos[NT_EFFECT_SET_COLOR].nbOutput = 1;
+
 
     noeudInfos[NT_DEBUG_PRINTF].nbInput = 2;
     noeudInfos[NT_DEBUG_PRINTF].nbOutput = 1;

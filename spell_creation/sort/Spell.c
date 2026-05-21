@@ -37,9 +37,10 @@ Spell* spell_create(Entity* _sender, float _manaMax)
     newSpell->manaMax = _manaMax;
 
     newSpell->speedCap = 10.f;
-    newSpell->force = (sfVector2f){ 0., 0. };
+    newSpell->force = (sfVector2f){ 0., 10. };
     newSpell->speed = (sfVector2f){ 0., 0. };
     newSpell->pos = _sender->pos;
+    newSpell->exPos = _sender->pos;
     newSpell->target = (sfVector2f){ 0., 0. };
     newSpell->directionCible = 0.f;
     newSpell->color = sfBlue;
@@ -59,6 +60,17 @@ Spell* spell_create(Entity* _sender, float _manaMax)
 }
 
 void updateOneSpell(void* _null, Spell* _spell) {
+    _spell->speed.x += _spell->force.x * deltaTime;
+    _spell->pos.x += _spell->speed.x * deltaTime;
+    _spell->speed.y += _spell->force.y * deltaTime;
+    _spell->pos.y += _spell->speed.y * deltaTime;
+    _spell->speed.x = (_spell->pos.x - _spell->exPos.x) / deltaTime;
+    _spell->speed.y = (_spell->pos.y - _spell->exPos.y) / deltaTime;
+    _spell->exPos = _spell->pos;
+
+    _spell->tickTimer += deltaTime;
+    if (_spell->tickTimer < _spell->timeBeetweenTick) return;
+    _spell->tickTimer -= _spell->timeBeetweenTick;
     if (_spell->noeudDeclencheurs[0] != NULL) {
         for (int i = 0; i < ((Noeud*) _spell->noeudDeclencheurs[0])->connectedNoeudOut->nbOut; i++) {
             Noeud* lastNoeud = (Noeud*)getLast(&_spell->noeudsActif);

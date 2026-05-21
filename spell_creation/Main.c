@@ -19,26 +19,87 @@ int main(int argc, char** argv) {
 
 	Entity* testPlayer = entity_create((sfVector2f) { 960., 540. });
 
-	Spell* sort = spell_create(testPlayer, 1000);
-	sort->nbNoeud = 3;
+	Spell* sort = spell_create(testPlayer, -1.);
+	sort->nbNoeud = 11;
 	sort->noeuds = calloc(sort->nbNoeud, sizeof(Noeud));
 	noeud_create(&sort->noeuds[0], NT_DECLENCHEUR_ON_TICK);
-	noeud_create(&sort->noeuds[1], NT_INPUT_PERTE_SECOND);
-	noeud_create(&sort->noeuds[2], NT_DEBUG_PRINTF);
+	noeud_create(&sort->noeuds[1], NT_CONST_FLOAT);
+	noeud_create(&sort->noeuds[2], NT_INPUT_SENDER);
+	noeud_create(&sort->noeuds[3], NT_MATH_ANGLE_TO);
+	noeud_create(&sort->noeuds[4], NT_MATH_COS);
+	noeud_create(&sort->noeuds[5], NT_MATH_SIN);
+	noeud_create(&sort->noeuds[6], NT_MATH_FOIS);
+	noeud_create(&sort->noeuds[7], NT_MATH_FOIS);
+	noeud_create(&sort->noeuds[8], NT_EFFECT_SET_FORCE_AT);
+	noeud_create(&sort->noeuds[9], NT_DEBUG_PRINTF);
+	noeud_create(&sort->noeuds[10], NT_DEBUG_PRINTF);
 
 	sort->noeudDeclencheurs[0] = &sort->noeuds[0];
 
 	sort->noeuds[0].connectedNoeudOut[0].nbOut = 1;
 	sort->noeuds[0].connectedNoeudOut[0].value = calloc(sort->noeuds[0].connectedNoeudOut[0].nbOut, sizeof(Out));
-	sort->noeuds[0].connectedNoeudOut[0].value[0].noeud = &sort->noeuds[1];
+	sort->noeuds[0].connectedNoeudOut[0].value[0].noeud = &sort->noeuds[2];
 	sort->noeuds[0].connectedNoeudOut[0].value[0].posInNoeud = 0;
 
-	sort->noeuds[1].connectedNoeudOut[1].nbOut = 1;
+	sort->noeuds[1].connectedNoeudOut[1].nbOut = 2;
 	sort->noeuds[1].connectedNoeudOut[1].value = calloc(sort->noeuds[1].connectedNoeudOut[1].nbOut, sizeof(Out));
-	sort->noeuds[1].connectedNoeudOut[1].value[0].noeud = &sort->noeuds[2];
-	sort->noeuds[1].connectedNoeudOut[1].value[0].posInNoeud = 1;
+	sort->noeuds[1].connectedNoeudOut[1].value[0].noeud = &sort->noeuds[6];
+	sort->noeuds[1].connectedNoeudOut[1].value[0].posInNoeud = 2;
+	sort->noeuds[1].connectedNoeudOut[1].value[1].noeud = &sort->noeuds[7];
+	sort->noeuds[1].connectedNoeudOut[1].value[1].posInNoeud = 2;
+	sort->noeuds[1].save = 100.f;
+
+	sort->noeuds[2].connectedNoeudOut[1].nbOut = 1;
+	sort->noeuds[2].connectedNoeudOut[1].value = calloc(sort->noeuds[2].connectedNoeudOut[1].nbOut, sizeof(Out));
+	sort->noeuds[2].connectedNoeudOut[1].value[0].noeud = &sort->noeuds[3];
+	sort->noeuds[2].connectedNoeudOut[1].value[0].posInNoeud = 1;
+	sort->noeuds[2].connectedNoeudOut[2].nbOut = 1;
+	sort->noeuds[2].connectedNoeudOut[2].value = calloc(sort->noeuds[2].connectedNoeudOut[2].nbOut, sizeof(Out));
+	sort->noeuds[2].connectedNoeudOut[2].value[0].noeud = &sort->noeuds[3];
+	sort->noeuds[2].connectedNoeudOut[2].value[0].posInNoeud = 2;
+
+	sort->noeuds[3].connectedNoeudOut[1].nbOut = 2;
+	sort->noeuds[3].connectedNoeudOut[1].value = calloc(sort->noeuds[3].connectedNoeudOut[1].nbOut, sizeof(Out));
+	sort->noeuds[3].connectedNoeudOut[1].value[0].noeud = &sort->noeuds[4];
+	sort->noeuds[3].connectedNoeudOut[1].value[0].posInNoeud = 1;
+	sort->noeuds[3].connectedNoeudOut[1].value[1].noeud = &sort->noeuds[5];
+	sort->noeuds[3].connectedNoeudOut[1].value[1].posInNoeud = 1;
+
+	sort->noeuds[4].connectedNoeudOut[0].nbOut = 1;
+	sort->noeuds[4].connectedNoeudOut[0].value = calloc(sort->noeuds[4].connectedNoeudOut[0].nbOut, sizeof(Out));
+	sort->noeuds[4].connectedNoeudOut[0].value[0].noeud = &sort->noeuds[6];
+	sort->noeuds[4].connectedNoeudOut[0].value[0].posInNoeud = 0;
+	sort->noeuds[4].connectedNoeudOut[1].nbOut = 1;
+	sort->noeuds[4].connectedNoeudOut[1].value = calloc(sort->noeuds[4].connectedNoeudOut[1].nbOut, sizeof(Out));
+	sort->noeuds[4].connectedNoeudOut[1].value[0].noeud = &sort->noeuds[6];
+	sort->noeuds[4].connectedNoeudOut[1].value[0].posInNoeud = 1;
+
+	sort->noeuds[5].connectedNoeudOut[0].nbOut = 1;
+	sort->noeuds[5].connectedNoeudOut[0].value = calloc(sort->noeuds[5].connectedNoeudOut[0].nbOut, sizeof(Out));
+	sort->noeuds[5].connectedNoeudOut[0].value[0].noeud = &sort->noeuds[7];
+	sort->noeuds[5].connectedNoeudOut[0].value[0].posInNoeud = 0;
+	sort->noeuds[5].connectedNoeudOut[1].nbOut = 1;
+	sort->noeuds[5].connectedNoeudOut[1].value = calloc(sort->noeuds[5].connectedNoeudOut[1].nbOut, sizeof(Out));
+	sort->noeuds[5].connectedNoeudOut[1].value[0].noeud = &sort->noeuds[7];
+	sort->noeuds[5].connectedNoeudOut[1].value[0].posInNoeud = 1;
+
+	sort->noeuds[6].connectedNoeudOut[1].nbOut = 2;
+	sort->noeuds[6].connectedNoeudOut[1].value = calloc(sort->noeuds[6].connectedNoeudOut[1].nbOut, sizeof(Out));
+	sort->noeuds[6].connectedNoeudOut[1].value[0].noeud = &sort->noeuds[8];
+	sort->noeuds[6].connectedNoeudOut[1].value[0].posInNoeud = 1;
+	sort->noeuds[6].connectedNoeudOut[1].value[1].noeud = &sort->noeuds[9];
+	sort->noeuds[6].connectedNoeudOut[1].value[1].posInNoeud = 1;
+
+	sort->noeuds[7].connectedNoeudOut[1].nbOut = 2;
+	sort->noeuds[7].connectedNoeudOut[1].value = calloc(sort->noeuds[7].connectedNoeudOut[1].nbOut, sizeof(Out));
+	sort->noeuds[7].connectedNoeudOut[1].value[0].noeud = &sort->noeuds[8];
+	sort->noeuds[7].connectedNoeudOut[1].value[0].posInNoeud = 2;
+	sort->noeuds[7].connectedNoeudOut[1].value[1].noeud = &sort->noeuds[10];
+	sort->noeuds[7].connectedNoeudOut[1].value[1].posInNoeud = 1;
 
 	sort->nbNoeudMaxByTick = 20;
+
+	sort->noeudsActif = &sort->noeuds[1];
 
 	while (sfRenderWindow_isOpen(window)) {
 		while (sfRenderWindow_pollEvent(window, &event)) {

@@ -45,6 +45,7 @@ struct Spell {
 	sfVector2f force;
 	sfVector2f speed;
 	sfVector2f pos;
+	sfVector2f exPos;
 	float direction;
 	sfVector2f target;
 	float directionCible;

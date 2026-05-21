@@ -220,15 +220,6 @@ float NoeudAction_Input_getSender(Noeud* _noeud, Spell* _spell) {
 	return 0.2f;
 }
 
-float NoeudAction_Input_getDirectionTo(Noeud* _noeud, Spell* _spell) {
-	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[0], 1.f);
-	sfVector2f dir = { _noeud->connectedNoeudIn[1] - _spell->pos.x, _noeud->connectedNoeudIn[2] - _spell->pos.y };
-	float angle = atan2f(dir.y, dir.x);
-	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[1], angle);
-
-	return 0.2f;
-}
-
 float NoeudAction_Input_getManaUse(Noeud* _noeud, Spell* _spell) {
 	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[0], 1.f);
 	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[1], _spell->manaMax - _spell->mana);
@@ -262,6 +253,66 @@ float NoeudAction_Input_getNBNoeudUse(Noeud* _noeud, Spell* _spell) {
 	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[1], (float) _spell->nbNoeudUse);
 
 	return 0.2f;
+}
+
+float NoeudAction_Math_Add(Noeud* _noeud, Spell* _spell) {
+	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[0], 1.f);
+	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[1], _noeud->connectedNoeudIn[1] + _noeud->connectedNoeudIn[2]);
+
+	return 0.3f;
+}
+
+float NoeudAction_Math_Sub(Noeud* _noeud, Spell* _spell) {
+	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[0], 1.f);
+	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[1], _noeud->connectedNoeudIn[1] - _noeud->connectedNoeudIn[2]);
+
+	return 0.3f;
+}
+
+float NoeudAction_Math_Fois(Noeud* _noeud, Spell* _spell) {
+	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[0], 1.f);
+	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[1], _noeud->connectedNoeudIn[1] * _noeud->connectedNoeudIn[2]);
+
+	return 0.5f;
+}
+
+float NoeudAction_Math_Cos(Noeud* _noeud, Spell* _spell) {
+	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[0], 1.f);
+	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[1], cosf(_noeud->connectedNoeudIn[1]));
+
+	return 0.5f;
+}
+
+float NoeudAction_Math_Sin(Noeud* _noeud, Spell* _spell) {
+	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[0], 1.f);
+	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[1], sinf(_noeud->connectedNoeudIn[1]));
+
+	return 0.5f;
+}
+
+float NoeudAction_Math_Divide(Noeud* _noeud, Spell* _spell) {
+	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[0], 1.f);
+	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[1], _noeud->connectedNoeudIn[1] / _noeud->connectedNoeudIn[2]);
+
+	return 0.5f;
+}
+
+float NoeudAction_Math_AngleTo(Noeud* _noeud, Spell* _spell) {
+	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[0], 1.f);
+	sfVector2f dir = { _noeud->connectedNoeudIn[1] - _spell->pos.x, _noeud->connectedNoeudIn[2] - _spell->pos.y };
+	float angle = atan2f(dir.y, dir.x);
+	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[1], angle);
+
+	return 0.2f;
+}
+
+
+float NoeudAction_Effect_SetForce(Noeud* _noeud, Spell* _spell) {
+	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[0], 1.f);
+	_spell->force.x = _noeud->connectedNoeudIn[1];
+	_spell->force.y = _noeud->connectedNoeudIn[2];
+
+	return 0.3f;
 }
 
 
@@ -305,13 +356,21 @@ void spellAction_init()
 	spellNoeud_addOneAction(NT_INPUT_GET_NB_SPELL_LEFT, NoeudAction_Input_getNbSpell);
 	spellNoeud_addOneAction(NT_INPUT_GET_NB_MOB_LEFT, NoeudAction_Input_getNbMob); 
 	spellNoeud_addOneAction(NT_INPUT_SENDER, NoeudAction_Input_getSender);
-	spellNoeud_addOneAction(NT_INPUT_DIRECTION_TO, NoeudAction_Input_getDirectionTo);
 	spellNoeud_addOneAction(NT_INPUT_MANA_USE, NoeudAction_Input_getManaUse);
 	spellNoeud_addOneAction(NT_INPUT_MANA_STORE, NoeudAction_Input_getManaLeft);
 	spellNoeud_addOneAction(NT_INPUT_MAX_MANA, NoeudAction_Input_getMaxMana);
 	spellNoeud_addOneAction(NT_INPUT_PERTE_SECOND, NoeudAction_Input_getPerte);
 	spellNoeud_addOneAction(NT_INPUT_NB_NOEUD_THIS_TICK, NoeudAction_Input_getNBNoeudUse);
 
+	spellNoeud_addOneAction(NT_MATH_PLUS, NoeudAction_Math_Add);
+	spellNoeud_addOneAction(NT_MATH_MOINS, NoeudAction_Math_Sub);
+	spellNoeud_addOneAction(NT_MATH_FOIS, NoeudAction_Math_Fois);
+	spellNoeud_addOneAction(NT_MATH_DIVIDE, NoeudAction_Math_Divide);
+	spellNoeud_addOneAction(NT_MATH_COS, NoeudAction_Math_Cos);
+	spellNoeud_addOneAction(NT_MATH_SIN, NoeudAction_Math_Sin);
+	spellNoeud_addOneAction(NT_MATH_ANGLE_TO, NoeudAction_Math_AngleTo);
+
+	spellNoeud_addOneAction(NT_EFFECT_SET_FORCE_AT, NoeudAction_Effect_SetForce);
 	spellNoeud_addOneAction(NT_EFFECT_SET_COLOR, NoeudAction_Effect_Color);
 
 	spellNoeud_addOneAction(NT_DEBUG_PRINTF, NoeudAction_Debug_Printf);
