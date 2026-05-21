@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="spell_creation/spell_creation.vcxproj" Id="4269f57a-220d-45af-b2f9-95a5b4f9d02f" />
+</Solution>
