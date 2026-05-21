@@ -1,6 +1,7 @@
 #include "header/Spell.h"
 #include "../Player/header/Player.h"
 #include "../tools/header/ListChaine.h"
+#include "../tools/header/clock.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -68,7 +69,7 @@ void updateOneSpell(void* _null, Spell* _spell) {
             }
         }
     }
-    _spell->mana -= _spell->perimetre * _spell->massVol / 100.;
+    _spell->mana -= (_spell->perimetre * _spell->massVol / 100.) * deltaTime;
     Noeud* current;
     if (_spell->manaMax < 0) {
         while (_spell->noeudsActif != NULL && _spell->nbNoeudUse < _spell->nbNoeudMaxByTick) {
@@ -78,7 +79,7 @@ void updateOneSpell(void* _null, Spell* _spell) {
             _spell->noeudsActif = _spell->noeudsActif->next;
             _spell->nbNoeudUse++;
         }
-        printf("%.2f mana use this tick en utilisant %d noeud\n", -_spell->mana, _spell->nbNoeudUse);
+        //printf("%.2f mana use this tick en utilisant %d noeud\n", -_spell->mana, _spell->nbNoeudUse);
         _spell->mana = 0.;
         _spell->nbNoeudUse = 0;
         return 0;

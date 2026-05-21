@@ -21,13 +21,82 @@ void spellNoeud_init()
     noeudInfos[NT_CONST_RANDOM].nbInput = 1;
     noeudInfos[NT_CONST_RANDOM].nbOutput = 2;
 
+    noeudInfos[NT_COND_EQUAL].nbInput = 3;
+    noeudInfos[NT_COND_EQUAL].nbOutput = 2;
+
+    noeudInfos[NT_COND_LITTER_THAN].nbInput = 3;
+    noeudInfos[NT_COND_LITTER_THAN].nbOutput = 2;
+
+    noeudInfos[NT_COND_GREATTER_THAN].nbInput = 3;
+    noeudInfos[NT_COND_GREATTER_THAN].nbOutput = 2;
+
+    noeudInfos[NT_COND_LITTER_OR_EQUAL_THAN].nbInput = 3;
+    noeudInfos[NT_COND_LITTER_OR_EQUAL_THAN].nbOutput = 2;
+
+    noeudInfos[NT_COND_GREATTER_OR_EQUAL_THAN].nbInput = 3;
+    noeudInfos[NT_COND_GREATTER_OR_EQUAL_THAN].nbOutput = 2;
+
+    noeudInfos[NT_COND_INVERT].nbInput = 2;
+    noeudInfos[NT_COND_INVERT].nbOutput = 2;
+
+    noeudInfos[NT_INPUT_CURRENT_POS].nbInput = 1;
+    noeudInfos[NT_INPUT_CURRENT_POS].nbOutput = 3;
+
+    noeudInfos[NT_INPUT_TARGET_POS].nbInput = 1;
+    noeudInfos[NT_INPUT_TARGET_POS].nbOutput = 3;
+
+    noeudInfos[NT_INPUT_COLOR].nbInput = 1;
+    noeudInfos[NT_INPUT_COLOR].nbOutput = 4;
+
+    noeudInfos[NT_INPUT_SPEED].nbInput = 1;
+    noeudInfos[NT_INPUT_SPEED].nbOutput = 3;
+
+    noeudInfos[NT_INPUT_FORCE].nbInput = 1;
+    noeudInfos[NT_INPUT_FORCE].nbOutput = 3;
+
+    noeudInfos[NT_INPUT_DIRECTION].nbInput = 1;
+    noeudInfos[NT_INPUT_DIRECTION].nbOutput = 2;
+
+    noeudInfos[NT_INPUT_GET_LAST_SPELL].nbInput = 1;
+    noeudInfos[NT_INPUT_GET_LAST_SPELL].nbOutput = 3; // tout pour avoir un spell
+
+    noeudInfos[NT_INPUT_GET_LAST_MOB].nbInput = 1;
+    noeudInfos[NT_INPUT_GET_LAST_MOB].nbOutput = 3; // tout pour avoir un Mob
+
+    noeudInfos[NT_INPUT_GET_NB_SPELL_LEFT].nbInput = 1;
+    noeudInfos[NT_INPUT_GET_NB_SPELL_LEFT].nbOutput = 2;
+
+    noeudInfos[NT_INPUT_GET_NB_MOB_LEFT].nbInput = 1;
+    noeudInfos[NT_INPUT_GET_NB_MOB_LEFT].nbOutput = 2;
+
+    noeudInfos[NT_INPUT_SENDER].nbInput = 1;
+    noeudInfos[NT_INPUT_SENDER].nbOutput = 3; // tout pour avoir un Mob (le sender)
+
+    noeudInfos[NT_INPUT_DIRECTION_TO].nbInput = 3; // prend une position
+    noeudInfos[NT_INPUT_DIRECTION_TO].nbOutput = 2;
+
+    noeudInfos[NT_INPUT_MANA_USE].nbInput = 1;
+    noeudInfos[NT_INPUT_MANA_USE].nbOutput = 2;
+
+    noeudInfos[NT_INPUT_MANA_STORE].nbInput = 1;
+    noeudInfos[NT_INPUT_MANA_STORE].nbOutput = 2;
+
+    noeudInfos[NT_INPUT_MAX_MANA].nbInput = 1;
+    noeudInfos[NT_INPUT_MAX_MANA].nbOutput = 2;
+
+    noeudInfos[NT_INPUT_PERTE_SECOND].nbInput = 1;
+    noeudInfos[NT_INPUT_PERTE_SECOND].nbOutput = 2;
+
+    noeudInfos[NT_INPUT_NB_NOEUD_THIS_TICK].nbInput = 1;
+    noeudInfos[NT_INPUT_NB_NOEUD_THIS_TICK].nbOutput = 2;
+
     noeudInfos[NT_DECLENCHEUR_ON_TICK].nbInput = 0;
     noeudInfos[NT_DECLENCHEUR_ON_TICK].nbOutput = 1;
 
     noeudInfos[NT_EFFECT_SET_COLOR].nbInput = 4;
     noeudInfos[NT_EFFECT_SET_COLOR].nbOutput = 1;
 
-    noeudInfos[NT_DEBUG_PRINTF].nbInput = 1;
+    noeudInfos[NT_DEBUG_PRINTF].nbInput = 2;
     noeudInfos[NT_DEBUG_PRINTF].nbOutput = 1;
 }
 
