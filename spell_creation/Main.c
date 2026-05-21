@@ -19,14 +19,24 @@ int main(int argc, char** argv) {
 
 	Entity* testPlayer = entity_create((sfVector2f) { 960., 540. });
 
-	Spell* sort = spell_create(testPlayer, -1);
-	sort->nbNoeud = 5;
+	Spell* sort = spell_create(testPlayer, 1000);
+	sort->nbNoeud = 3;
 	sort->noeuds = calloc(sort->nbNoeud, sizeof(Noeud));
-	noeud_create(&sort->noeuds[0], NT_CONST_FLOAT);
-	noeud_create(&sort->noeuds[1], NT_CONST_FLOAT);
-	noeud_create(&sort->noeuds[2], NT_COND_LITTER_THAN);
-	noeud_create(&sort->noeuds[3], NT_DEBUG_PRINTF);
-	noeud_create(&sort->noeuds[4], NT_DEBUG_PRINTF);
+	noeud_create(&sort->noeuds[0], NT_DECLENCHEUR_ON_TICK);
+	noeud_create(&sort->noeuds[1], NT_INPUT_PERTE_SECOND);
+	noeud_create(&sort->noeuds[2], NT_DEBUG_PRINTF);
+
+	sort->noeudDeclencheurs[0] = &sort->noeuds[0];
+
+	sort->noeuds[0].connectedNoeudOut[0].nbOut = 1;
+	sort->noeuds[0].connectedNoeudOut[0].value = calloc(sort->noeuds[0].connectedNoeudOut[0].nbOut, sizeof(Out));
+	sort->noeuds[0].connectedNoeudOut[0].value[0].noeud = &sort->noeuds[1];
+	sort->noeuds[0].connectedNoeudOut[0].value[0].posInNoeud = 0;
+
+	sort->noeuds[1].connectedNoeudOut[1].nbOut = 1;
+	sort->noeuds[1].connectedNoeudOut[1].value = calloc(sort->noeuds[1].connectedNoeudOut[1].nbOut, sizeof(Out));
+	sort->noeuds[1].connectedNoeudOut[1].value[0].noeud = &sort->noeuds[2];
+	sort->noeuds[1].connectedNoeudOut[1].value[0].posInNoeud = 1;
 
 	sort->nbNoeudMaxByTick = 20;
 
@@ -47,6 +57,19 @@ int main(int argc, char** argv) {
 		}
 
 		clock_update();
+
+		if (sfKeyboard_isScancodePressed(sfScanA)) {
+			testPlayer->pos.x -= 100. * deltaTime;
+		}
+		if (sfKeyboard_isScancodePressed(sfScanD)) {
+			testPlayer->pos.x += 100. * deltaTime;
+		}
+		if (sfKeyboard_isScancodePressed(sfScanW)) {
+			testPlayer->pos.y -= 100. * deltaTime;
+		}
+		if (sfKeyboard_isScancodePressed(sfScanS)) {
+			testPlayer->pos.y += 100. * deltaTime;
+		}
 
 		spell_updates();
 		entity_updates();

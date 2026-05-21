@@ -126,15 +126,6 @@ float NoeudAction_Input_getPos(Noeud* _noeud, Spell* _spell) {
 	return 0.3f;
 }
 
-// renvoie la position du sort
-float NoeudAction_Input_getPos(Noeud* _noeud, Spell* _spell) {
-	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[0], 1.f);
-	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[1], _spell->pos.x);
-	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[2], _spell->pos.y);
-
-	return 0.3f;
-}
-
 // renvoie la position de la target
 float NoeudAction_Input_getTargetPos(Noeud* _noeud, Spell* _spell) {
 	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[0], 1.f);
@@ -146,12 +137,11 @@ float NoeudAction_Input_getTargetPos(Noeud* _noeud, Spell* _spell) {
 
 // renvoie la coulleur
 float NoeudAction_Input_getColor(Noeud* _noeud, Spell* _spell) {
+	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[1], _spell->color.r / 255.);
+	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[2], _spell->color.b / 255.);
+	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[3], _spell->color.b / 255.);
 	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[0], 1.f);
-	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[1], _spell->color.r);
-	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[2], _spell->color.b);
-	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[2], _spell->color.r);
-
-	return 0.3f;
+	return 4.f;
 }
 
 // renvoie la vitesse (x et y)
@@ -253,13 +243,6 @@ float NoeudAction_Input_getManaLeft(Noeud* _noeud, Spell* _spell) {
 	return 0.2f;
 }
 
-float NoeudAction_Input_getManaLeft(Noeud* _noeud, Spell* _spell) {
-	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[0], 1.f);
-	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[1], _spell->mana);
-
-	return 0.2f;
-}
-
 float NoeudAction_Input_getMaxMana(Noeud* _noeud, Spell* _spell) {
 	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[0], 1.f);
 	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[1], _spell->manaMax);
@@ -276,7 +259,7 @@ float NoeudAction_Input_getPerte(Noeud* _noeud, Spell* _spell) {
 
 float NoeudAction_Input_getNBNoeudUse(Noeud* _noeud, Spell* _spell) {
 	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[0], 1.f);
-	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[1], _spell->nbNoeudUse);
+	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[1], (float) _spell->nbNoeudUse);
 
 	return 0.2f;
 }
@@ -292,7 +275,7 @@ float NoeudAction_Effect_Color(Noeud* _noeud, Spell* _spell) {
 }
 
 float NoeudAction_Debug_Printf(Noeud* _noeud, Spell* _spell) {
-	printf("[DEBUG] Noeud: ce noeud a ressue une valeur des %.3f\n", _noeud->connectedNoeudIn[1]);
+	printf("[DEBUG] Noeud: ce noeud a ressue une valeur des %f\n", _noeud->connectedNoeudIn[1]);
 	modifAllLinked(_noeud, &_noeud->connectedNoeudOut[0], 1.);
 	return 0.f;
 }
@@ -327,7 +310,7 @@ void spellAction_init()
 	spellNoeud_addOneAction(NT_INPUT_MANA_STORE, NoeudAction_Input_getManaLeft);
 	spellNoeud_addOneAction(NT_INPUT_MAX_MANA, NoeudAction_Input_getMaxMana);
 	spellNoeud_addOneAction(NT_INPUT_PERTE_SECOND, NoeudAction_Input_getPerte);
-	spellNoeud_addOneAction(NT_INPUT_NB_NOEUD_THIS_TICK, NoeudAction_Input_getManaLeft);
+	spellNoeud_addOneAction(NT_INPUT_NB_NOEUD_THIS_TICK, NoeudAction_Input_getNBNoeudUse);
 
 	spellNoeud_addOneAction(NT_EFFECT_SET_COLOR, NoeudAction_Effect_Color);
 
